@@ -681,6 +681,7 @@ public class ResourceConverter {
 
 	/**
 	 * Serializes provided {@link JSONAPIDocument} into JSON API Spec compatible byte representation.
+	 *
 	 * @param document {@link JSONAPIDocument} document to serialize
 	 * @param settings {@link SerializationSettings} settings that override global serialization settings
 	 * @return serialized content in bytes
@@ -699,6 +700,12 @@ public class ResourceConverter {
 			if (document.get() != null) {
 				ObjectNode dataNode = getDataNode(document.get(), includedDataMap, settings);
 				result.set(DATA, dataNode);
+
+				// It is possible that relationships point back to top-level resource, in this case remove it from
+				// included section since it is already present (as a top level resource)
+				String identifier = String.valueOf(getIdValue(document.get()))
+						.concat(configuration.getTypeName(document.get().getClass()));
+				includedDataMap.remove(identifier);
 				result = addIncludedSection(result, includedDataMap);
 			}
 
@@ -891,6 +898,12 @@ public class ResourceConverter {
 							ObjectNode identifierNode = objectMapper.createObjectNode();
 							identifierNode.put(TYPE, relationshipType);
 							identifierNode.put(ID, idValue);
+
+							ObjectNode resourceMeta = getResourceMeta(element, settings);
+							if (resourceMeta != null && shouldSerializeMeta(settings)) {
+								identifierNode.set(META, resourceMeta);
+							}
+
 							dataArrayNode.add(identifierNode);
 
 							// Handle included data
@@ -913,6 +926,11 @@ public class ResourceConverter {
 						identifierNode.put(TYPE, relationshipType);
 						identifierNode.put(ID, idValue);
 
+						ObjectNode resourceMeta = getResourceMeta(relationshipObject, settings);
+						if (resourceMeta != null && shouldSerializeMeta(settings)) {
+							identifierNode.set(META, resourceMeta);
+						}
+
 						relationshipDataNode.set(DATA, identifierNode);
 
 						if (shouldSerializeRelationship(relationshipName, settings) && idValue != null) {
@@ -924,7 +942,6 @@ public class ResourceConverter {
 						}
 					}
 				}
-
 			}
 
 			if (relationshipsNode.size() > 0) {
@@ -1127,6 +1144,18 @@ public class ResourceConverter {
 		if (shouldSerializeMeta(settings)) {
 			Field relationshipMetaField = configuration
 					.getRelationshipMetaField(source.getClass(), relationshipName);
+
+			if (relationshipMetaField != null && relationshipMetaField.get(source) != null) {
+				return objectMapper.valueToTree(relationshipMetaField.get(source));
+			}
+		}
+		return null;
+	}
+
+	private ObjectNode getResourceMeta(Object source, SerializationSettings settings)
+			throws IllegalAccessException {
+		if (shouldSerializeMeta(settings)) {
+			Field relationshipMetaField = configuration.getMetaField(source.getClass());
 
 			if (relationshipMetaField != null && relationshipMetaField.get(source) != null) {
 				return objectMapper.valueToTree(relationshipMetaField.get(source));
