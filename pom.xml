@@ -4,7 +4,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.jasminb</groupId>
+	<groupId>com.chewy</groupId>
 	<artifactId>jsonapi-converter</artifactId>
 	<version>0.10-SNAPSHOT</version>
 
@@ -12,7 +12,7 @@
 	<description>
 		JSONAPI-Converter is a library that provides means for integrating with services using JSON API specification.
 	</description>
-	<url>https://github.com/jasminb/jsonapi-converter</url>
+	<url>https://github.com/chewy-inc/jsonapi-converter</url>
 
 	<dependencies>
 		<dependency>
