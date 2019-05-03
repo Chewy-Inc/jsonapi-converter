@@ -38,3 +38,14 @@ description = 'JSONAPI Converter'
 sourceCompatibility = '1.7'
 
 apply from: 'artifactory-config.gradle'
+
+artifactory {
+    contextUrl = System.env.ARTIFACTORY_URL
+    publish {
+        repository {
+            repoKey = 'libs-snapshot'
+            username = System.env.ARTIFACTORY_USER_NAME
+            password = System.env.ARTIFACTORY_API_KEY
+        }
+    }
+}
