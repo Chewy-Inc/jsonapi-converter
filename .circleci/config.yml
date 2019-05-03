@@ -5,4 +5,9 @@ jobs:
       - image: circleci/openjdk:8-jdk
     steps:
       - checkout
-      - run: mvn deploy
+      - run:
+          name: Build Artifact
+          command: ./gradlew build
+      - run:
+          name: Publish to Artifactory
+          command: /gradlew artifactoryPublish
