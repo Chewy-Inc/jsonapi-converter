@@ -40,12 +40,10 @@ sourceCompatibility = '1.7'
 apply from: 'artifactory-config.gradle'
 
 artifactory {
-    contextUrl = System.env.ARTIFACTORY_URL
+    contextUrl = 'http://artifactory.ecom.chewy.com/artifactory/'
     publish {
         repository {
             repoKey = 'libs-snapshot'
-            username = System.env.ARTIFACTORY_USER_NAME
-            password = System.env.ARTIFACTORY_API_KEY
         }
     }
 }
