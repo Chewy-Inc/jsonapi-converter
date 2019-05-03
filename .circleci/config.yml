@@ -10,4 +10,4 @@ jobs:
           command: ./gradlew build
       - run:
           name: Publish to Artifactory
-          command: /gradlew artifactoryPublish
+          command: ./gradlew artifactoryPublish
