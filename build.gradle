@@ -49,6 +49,6 @@ artifactory {
 }
 
 task print_env {
-    println System.getenv("ARTIFACTORY_USER")
-    println System.getenv("ARTIFACTORY_PASSWORD")
+    println System.properties
+    println System.getenv()
 }
