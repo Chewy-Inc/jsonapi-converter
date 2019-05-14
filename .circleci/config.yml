@@ -9,5 +9,6 @@ jobs:
           name: Build Artifact
           command: ./gradlew build
       - run:
+          contex: artifactory-cloud
           name: Publish to Artifactory
           command: ./gradlew artifactoryPublish
