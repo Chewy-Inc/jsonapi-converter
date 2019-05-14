@@ -10,6 +10,7 @@ buildscript {
     }
 }
 
+
 plugins {
     id 'java'
 }
@@ -35,8 +36,6 @@ group = 'com.chewy.services.recommendation'
 version = '0.10-SNAPSHOT'
 description = 'JSONAPI Converter'
 sourceCompatibility = '1.7'
-
-apply from: 'artifactory-config.gradle'
 
 artifactory {
     contextUrl = 'https://chewyinc.jfrog.io/chewyinc/artifactory/'
