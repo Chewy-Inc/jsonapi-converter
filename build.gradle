@@ -47,3 +47,8 @@ artifactory {
         }
     }
 }
+
+task print_env {
+    println System.env.ARTIFACTORY_USER
+    println System.env.ARTIFACTORY_PASSWORD
+}

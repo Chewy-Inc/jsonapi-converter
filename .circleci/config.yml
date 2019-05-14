@@ -11,4 +11,4 @@ jobs:
       - run:
           contex: artifactory-cloud
           name: Publish to Artifactory
-          command: ./gradlew artifactoryPublish
+          command: ./gradlew print_env artifactoryPublish
