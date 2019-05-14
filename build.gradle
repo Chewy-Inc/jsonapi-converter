@@ -42,13 +42,13 @@ artifactory {
     publish {
         repository {
             repoKey = 'libs-snapshot'
-            username = System.env.ARTIFACTORY_USER
-            password = System.env.ARTIFACTORY_PASSWORD
+            username = System.getenv("ARTIFACTORY_USER")
+            password = System.getenv("ARTIFACTORY_PASSWORD")
         }
     }
 }
 
 task print_env {
-    println System.env.ARTIFACTORY_USER
-    println System.env.ARTIFACTORY_PASSWORD
+    println System.getenv("ARTIFACTORY_USER")
+    println System.getenv("ARTIFACTORY_PASSWORD")
 }
