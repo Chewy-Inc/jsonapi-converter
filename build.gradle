@@ -38,7 +38,7 @@ description = 'JSONAPI Converter'
 sourceCompatibility = '1.7'
 
 artifactory {
-    contextUrl = 'https://chewyinc.jfrog.io/chewyinc/artifactory/'
+    contextUrl = System.getenv("ARTIFACTORY_URL")
     publish {
         repository {
             repoKey = 'libs-snapshot'
