@@ -1,6 +1,7 @@
 version : 2
 jobs:
   build:
+    contex: artifactory-cloud
     docker:
       - image: circleci/openjdk:8-jdk
     steps:
@@ -9,6 +10,5 @@ jobs:
           name: Build Artifact
           command: ./gradlew build
       - run:
-          contex: artifactory-cloud
           name: Publish to Artifactory
-          command: ./gradlew print_env artifactoryPublish
+          command: ./gradlew artifactoryPublish

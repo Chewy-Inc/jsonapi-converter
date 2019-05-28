@@ -47,8 +47,3 @@ artifactory {
         }
     }
 }
-
-task print_env {
-    println System.properties
-    println System.getenv()
-}
