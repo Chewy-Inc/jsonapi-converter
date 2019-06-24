@@ -13,9 +13,11 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'com.jfrog.artifactory' version "4.9.6"
+    id 'jacoco'
+    id 'maven'
+    id 'maven-publish'
 }
-
-apply plugin: "com.jfrog.artifactory"
 
 def artifactory_url = System.getenv("ARTIFACTORY_URL") ?: "http://artifactory.ecom.chewy.com/artifactory"
 def artifactory_user = System.getenv("ARTIFACTORY_USER") ?: ""
