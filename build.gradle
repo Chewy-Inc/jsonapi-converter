@@ -22,7 +22,7 @@ plugins {
 def artifactory_url = System.getenv("ARTIFACTORY_URL") ?: "http://artifactory.ecom.chewy.com/artifactory"
 def artifactory_user = System.getenv("ARTIFACTORY_USER") ?: ""
 def artifactory_password = System.getenv("ARTIFACTORY_PASSWORD") ?: ""
-def artifactory_repo = System.getenv("ARTIFACTORY_REPO") ?: "libs-snapshot-local"
+def artifactory_repo = System.getenv("CIRCLE_BRANCH") == 'master' ? 'libs-release' : 'libs-snapshot'
 
 repositories {
     mavenLocal()
@@ -40,7 +40,7 @@ dependencies {
 }
 
 group = 'com.chewy.services.recommendation'
-version = '0.10-SNAPSHOT'
+version = '0.0.10'
 description = 'JSONAPI Converter'
 sourceCompatibility = '1.7'
 
@@ -66,20 +66,12 @@ task sourcesJar(type: Jar) {
     archiveClassifier = 'sources'
 }
 
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
             artifact(sourcesJar) {
                 classifier = 'sources'
-            }
-            artifact(javadocJar) {
-                classifier = 'javadoc'
             }
         }
     }
