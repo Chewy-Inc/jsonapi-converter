@@ -40,7 +40,7 @@ dependencies {
 }
 
 group = 'com.chewy.services.recommendation'
-version = '0.0.10'
+version = '0.10'
 description = 'JSONAPI Converter'
 sourceCompatibility = '1.7'
 
