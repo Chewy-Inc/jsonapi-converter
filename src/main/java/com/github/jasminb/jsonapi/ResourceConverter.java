@@ -17,6 +17,7 @@ import com.github.jasminb.jsonapi.exceptions.DocumentSerializationException;
 import com.github.jasminb.jsonapi.exceptions.UnregisteredTypeException;
 import com.github.jasminb.jsonapi.models.errors.Error;
 
+import com.github.jasminb.jsonapi.models.errors.Errors;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -312,6 +313,16 @@ public class ResourceConverter {
 		}
 	}
 
+  /**
+   * Returns the Error objects from the JSON response.
+   * @param dataStream {@link InputStream} input stream
+   *
+   * @return the {@link Errors} object
+   */
+	public Errors readErrorDocument(InputStream dataStream) throws IOException {
+    JsonNode rootNode = objectMapper.readTree(dataStream);
+	  return ErrorUtils.parseError(objectMapper, rootNode, Errors.class);
+  }
 	/**
 	 * Converts provided input into a target object. After conversion completes any relationships defined are resolved.
 	 * @param source JSON source
