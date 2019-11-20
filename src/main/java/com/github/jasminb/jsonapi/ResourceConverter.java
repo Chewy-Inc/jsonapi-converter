@@ -323,6 +323,7 @@ public class ResourceConverter {
     JsonNode rootNode = objectMapper.readTree(dataStream);
 	  return ErrorUtils.parseError(objectMapper, rootNode, Errors.class);
   }
+
 	/**
 	 * Converts provided input into a target object. After conversion completes any relationships defined are resolved.
 	 * @param source JSON source
